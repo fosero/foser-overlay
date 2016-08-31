@@ -2,7 +2,7 @@
 <!DOCTYPE repositories SYSTEM "/dtd/repositories.dtd">
 <repositories xmlns="" version="1.0">
   <repo priority="75" quality="experimental" status="unofficial">
-    <name><![CDATA[gnome-stable]]></name>
+    <name><![CDATA[foser-overlay]]></name>
     <description lang="en"><![CDATA[Personal ebuild tree.]]></description>
     <homepage>https://github.com/fosero/foser-overlay</homepage>
     <owner type="person">
