@@ -43,6 +43,7 @@ DEPEND="${RDEPEND}
 src_prepare() {
 
 	eapply ${FILESDIR}/${P}-fix_builddir.patch
+	eapply ${FILESDIR}/${P}-client_id.patch
 
 	eapply_user
 
