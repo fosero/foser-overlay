@@ -1,6 +1,5 @@
-# Copyright 1999-2016 Gentoo Foundation
+# Copyright 1999-2017 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Id$
 
 EAPI=6
 
@@ -23,7 +22,7 @@ KEYWORDS="~amd64"
 
 
 RDEPEND="
-	>=x11-libs/gtk+-3.20
+	>=x11-libs/gtk+-3.22
 	net-libs/libsoup:2.4
 	dev-libs/json-glib
 	dev-libs/libpeas[gtk]
@@ -36,18 +35,9 @@ RDEPEND="
 	net-libs/webkit-gtk:4
 "
 DEPEND="${RDEPEND}
-	>=dev-util/meson-0.32
+	>=dev-util/meson-0.36
 	dev-util/ninja
 "
-
-src_prepare() {
-
-	eapply ${FILESDIR}/${P}-fix_builddir.patch
-	eapply ${FILESDIR}/${P}-client_id.patch
-
-	eapply_user
-
-}
 
 src_configure() {
 
@@ -58,9 +48,7 @@ src_configure() {
 	meson \
 		--prefix /usr \
 		--libdir lib \
-		-Dwith-player-gstreamer-opengl=true \
-		-Dwith-player-gstreamer-clutter=true \
-		-Dwith-player-gstreamer-cairo=true \
+		-Dbuild-player-backends=gstreamer-cairo,gstreamer-opengl,gstreamer-clutter \
 		-Ddo-post-install=false \
 		-Db_lundef=false \
 		..
