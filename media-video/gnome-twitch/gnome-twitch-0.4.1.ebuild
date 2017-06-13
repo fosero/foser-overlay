@@ -3,7 +3,7 @@
 
 EAPI=6
 
-inherit eutils gnome2
+inherit eutils gnome2 meson
 
 DESCRIPTION="Enjoy Twitch on your GNU/Linux desktop"
 HOMEPAGE="http://gnome-twitch.vinszent.com/"
@@ -41,30 +41,12 @@ DEPEND="${RDEPEND}
 
 src_configure() {
 
-	mkdir ${S}/build
-	cd ${S}/build
+	local emesonargs=(
+		-Dbuild-player-backends=gstreamer-cairo,gstreamer-opengl,gstreamer-clutter
+		-Ddo-post-install=false
+		-Db_lundef=false
+	)
 
-	# post install steps done by gnome2 eclass
-	meson \
-		--prefix /usr \
-		--libdir lib \
-		-Dbuild-player-backends=gstreamer-cairo,gstreamer-opengl,gstreamer-clutter \
-		-Ddo-post-install=false \
-		-Db_lundef=false \
-		..
-
-}
-
-src_compile() {
-
-	cd ${S}/build
-	ninja || die
-
-}
-
-src_install() {
-
-	cd ${S}/build
-	DESTDIR=${D} ninja install || die
+	meson_src_configure
 
 }
